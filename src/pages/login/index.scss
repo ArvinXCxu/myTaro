@@ -1,0 +1,52 @@
+/*登录*/
+.login{
+    height: 100%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .logo{
+      img{
+        width:64px;
+        height:64px;
+        margin-bottom: 10px;
+      }
+    }
+    .appName{
+      font-size:16px;
+      color:#4e4e4e;
+      text-align: center;
+      margin-bottom: 35px;
+    }
+    .from{
+      width:80%;
+    }
+    .btn{
+      color: #fff;
+      display: block;
+      width: 80%;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      background: #5077AA;
+      border-radius: 8px;
+      margin:15px auto;
+      font-size: 18px;
+    }
+    .from{
+      >div:last-child{
+        margin:10px 0 10px;
+      }
+      >div >div{
+        width:100%;
+      }
+      /*>div[class*='MuiFormLabel-root'] div[class*='MuiFormLabel-focused']{
+        color:#5077AA
+      }
+      div[class*='MuiInput-underline']:after{
+        border-bottom: 2px solid #5077AA;
+      }*/
+    }
+    
+  }
