@@ -1,20 +1,9 @@
 import { observable } from 'mobx'
+// import Taro from '@tarojs/taro'
+import '@tarojs/async-await'
 
-const counterStore = observable({
-  counter: 0,
-  counterStore() {
-    this.counter++
-  },
-  increment() {
-    this.counter++
-  },
-  decrement() {
-    this.counter--
-  },
-  incrementAsync() {
-    setTimeout(() => {
-      this.counter++
-    }, 1000)
-  }
+const appStore = observable({
+  token: '',
+  user:''
 })
-export default counterStore
+export default appStore
