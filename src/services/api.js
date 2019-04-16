@@ -63,12 +63,15 @@ function checkSuccess(data) {
  * 请求错误处理
  */
 function throwError(err) {
+  if(err && err.message.indexOf('token')>-1){
+    Taro.showToast({title: 'token失效，返回登录页', icon: 'none',});
+    Taro.redirectTo({url:'/pages/login/index'})
+  }
   Taro.hideNavigationBarLoading();
   Taro.hideNavigationBarLoading();
   const error = new Error(err.errMsg || '服务器正在维护中!');
   error.code = 500;
   throw error;
-
 }
 
 export default {
@@ -76,6 +79,7 @@ export default {
     const {url} = options;
     Taro.showNavigationBarLoading();
     if(server==='H5_url'){
+      console.log(Taro.getStorageSync('token'))
       if(!Taro.getStorageSync('token')){Taro.redirectTo({url:'/pages/login/index'})}
       if(options.hasOwnProperty('header')){
         Object.assign(options.header,{"Authorization":Taro.getStorageSync('token')})
@@ -97,7 +101,6 @@ export default {
         return checkSuccess(res)
       })
       .catch(error => {
-
         throwError(error)
       })
 

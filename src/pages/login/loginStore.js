@@ -1,8 +1,8 @@
 import { observable } from 'mobx'
 import api from '../../services/api'
 import appStore from '../../store/appStore'
-import '@tarojs/async-await'
 import Taro from '@tarojs/taro'
+import '@tarojs/async-await'
 
 const loginStore = observable({
   password: '',
