@@ -20,10 +20,14 @@ const loginStore = observable({
     if(token){
       appStore.token=token
       Taro.setStorageSync('token',token)
-      Taro.showToast({title: '登录成功，正在跳转', icon: 'success',});
-      Taro.redirectTo({url:'/pages/index/index'})
     }else{
       Taro.showToast({title: '登录失败', icon: 'none',});
+    }
+    const userInfo = await api.get('shopguide_url',{url:'game/getUser',data:{accessToken:appStore.token}},true)
+    if(userInfo){
+      Taro.setStorageSync('userData',JSON.stringify(userInfo))
+      Taro.showToast({title: '登录成功，正在跳转', icon: 'success',});
+      Taro.redirectTo({url:'/pages/index/index'})
     }
   }
 })

@@ -1,8 +1,7 @@
 {
-  "name": "myTaro",
+  "name": "Taro-superpartner",
   "version": "1.0.0",
   "private": true,
-  "description": "公司翻译项目",
   "main": "index.js",
   "scripts": {
     "build:weapp": "taro build --type weapp",

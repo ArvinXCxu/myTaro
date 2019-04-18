@@ -39,6 +39,7 @@ function checkSuccess(data) {
     Taro.removeStorageSync('token')
     Taro.showToast({title: 'token失效,返回登录', icon: 'none',});
     Taro.redirectTo({url:'/pages/login/index'})
+    return false
   }
   if (
     typeof data.code === 'number' &&
@@ -51,7 +52,8 @@ function checkSuccess(data) {
   ) {
     return data
   }
-  const message = data.message || '服务器异常';
+
+  const message = data.errMsg || '服务器异常';
   const error = new Error(message);
   error.data = data;
   error.text = data;
@@ -75,11 +77,10 @@ function throwError(err) {
 }
 
 export default {
-  request(server,options, method) {
+  request(server,options,method,ischeck=false) {
     const {url} = options;
     Taro.showNavigationBarLoading();
     if(server==='H5_url'){
-      console.log(Taro.getStorageSync('token'))
       if(!Taro.getStorageSync('token')){Taro.redirectTo({url:'/pages/login/index'})}
       if(options.hasOwnProperty('header')){
         Object.assign(options.header,{"Authorization":Taro.getStorageSync('token')})
@@ -98,6 +99,7 @@ export default {
       },
     }).then(checkHttpStatus)
       .then((res) => {
+        if(ischeck){return res}
         return checkSuccess(res)
       })
       .catch(error => {
@@ -105,15 +107,16 @@ export default {
       })
 
   },
-  get(server,options) {
+  /*对于某些接口，根本没有返回code,我们可以强制跳过检测*/
+  get(server,options,ischeck) {
     return this.request(server,{
       ...options
-    })
+    },'GET',ischeck)
   },
-  post(server,options) {
+  post(server,options,ischeck) {
     return this.request(server,{
       ...options,
       data: qs.stringify(options.data)
-    }, 'POST')
+    }, 'POST',ischeck)
   }
 }

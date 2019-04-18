@@ -1,10 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, ScrollView } from '@tarojs/components'
+import { View, ScrollView,Image,Text } from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 import indexStore from './indexStore'
 import HomeSwiper from './homeSwiper'
 import './index.scss'
-
+import go from './moduleGuide'
 
 @inject('appStore')
 @observer
@@ -41,6 +41,10 @@ class Index extends Component {
   onScroll=() =>{
 
   }
+  goTo=(item) =>{
+    let url=go.moduleGuide(item);
+    Taro.redirectTo({url:url})
+  }
   render () {
     return (
       <ScrollView
@@ -54,20 +58,21 @@ class Index extends Component {
         onScroll={this.onScroll}
       >
         <HomeSwiper data={indexStore.headlineDatas} />
-        <MuneList items={this.store.moduleDatas} goTo={(type)=>this.store.goTo(type,this)} />
+        <MuneList items={indexStore.moduleDatas} goTo={this.goTo} />
       </ScrollView>
     )
   }
 }
-const MuneList = (props) => (
-  <div className="menudiv">
-    <ul className="tabList clearfix">
+const MuneList = ( props ) => (
+  <View className='menudiv'>
+    <View className='tabList'>
       {props.items&&props.items.map((item, index) => (
-        <li key={index} onClick={()=>{props.goTo(item)}}>
-          <img src={item.img} alt="" /><span>{item.moduleName}</span>
-        </li>
+        <View key={index} className='modules' onClick={()=>{props.goTo(item)}}>
+          <Image className='moduleIcon' src={item.img} />
+          <Text className='moduleName'>{item.moduleName}</Text>
+        </View>
       ))}
-    </ul>
-  </div>
+    </View>
+  </View>
 );
 export default Index

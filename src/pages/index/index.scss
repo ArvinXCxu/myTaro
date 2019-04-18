@@ -1,6 +1,38 @@
 .home{
   height: 100vh;
-  .swiperH{
-
+  .menudiv{
+    margin-bottom: 10px;
+    .tabList{
+      padding-top: 10px;
+      flex: 1;
+      background: #fff;
+      display: flex;
+      width: 100vw;
+      height: 50vw;
+      flex-wrap: wrap;
+      .modules {
+        display: flex;
+        width: 25vw;
+        height: 20vw;
+        font-size: 12px;
+        overflow: hidden;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .moduleIcon {
+          width: 12vw;
+          height: 12vw;
+          border-radius: 50%;
+          overflow: hidden
+        }
+        .moduleName {
+          height: 32px;
+          display: block;
+          line-height: 16px;
+          padding: 9px 0;
+          white-space:nowrap;
+        }
+      }
+    }
   }
 }
